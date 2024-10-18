@@ -1,3 +1,3 @@
-import DataBase from "./classes/DataBase.ts";
-import VectorGenerator from "./classes/VectorGenerator.ts";
+import DataBase from "./classes/DataBase";
+import VectorGenerator from "./classes/VectorGenerator";
 export { DataBase, VectorGenerator };

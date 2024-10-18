@@ -2,8 +2,10 @@
 	"name": "vectorcore",
 	"version": "1.0.0",
 	"description": "A vector database with the vector generation included",
-	"main": "./src/index.ts",
+	"main": "./dist/index.js",
+	"types":"./dist/index.d.ts",
 	"scripts": {
+		"build": "tsc ./src/index.ts",
 		"test": "echo \"Error: no test specified\" && exit 1"
 	},
 	"repository": {
@@ -28,10 +30,10 @@
 		"fastembed": "^1.14.1",
 		"vectra": "^0.9.0"
 	},
-	"devDependencies": {
-		"@types/bun": "latest"
-	},
 	"peerDependencies": {
 		"typescript": "^5.0.0"
+	},
+	"devDependencies": {
+		"@types/node": "^22.7.6"
 	}
 }
