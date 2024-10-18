@@ -1,10 +1,5 @@
 import { EmbeddingModel, FlagEmbedding } from "fastembed";
-
-enum VectorTypes {
-	Any,
-	Query,
-	Passage,
-}
+import { VectorTypes } from "../Types";
 
 class VectorGenerator {
 	private modelEnum: EmbeddingModel;

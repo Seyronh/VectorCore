@@ -1,9 +1,5 @@
 import { LocalIndex, type MetadataFilter } from "vectra";
-
-interface Item {
-	id: string;
-	metadata: object;
-}
+import { type Item } from "../Types";
 
 class DataBase {
 	private index: LocalIndex;
