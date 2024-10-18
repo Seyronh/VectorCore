@@ -1,0 +1,37 @@
+{
+	"name": "vectorcore",
+	"version": "1.0.0",
+	"description": "A vector database with the vector generation included",
+	"main": "./src/index.ts",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/Seyronh/VectorCore.git"
+	},
+	"keywords": [
+		"ai",
+		"vector",
+		"database",
+		"llm",
+		"ia",
+		"ml"
+	],
+	"author": "Seyronh",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/Seyronh/VectorCore/issues"
+	},
+	"homepage": "https://github.com/Seyronh/VectorCore#readme",
+	"dependencies": {
+		"fastembed": "^1.14.1",
+		"vectra": "^0.9.0"
+	},
+	"devDependencies": {
+		"@types/bun": "latest"
+	},
+	"peerDependencies": {
+		"typescript": "^5.0.0"
+	}
+}
