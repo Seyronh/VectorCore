@@ -49,6 +49,7 @@ declare class DataBase {
      * @returns {Item[]} An array of items that match the query.
      */
     getAllItems(filter?: MetadataFilter): Promise<import("vectra").IndexItem<Record<string, import("vectra").MetadataTypes>>[]>;
+    deleteDB(): Promise<void>;
 }
 export default DataBase;
 //# sourceMappingURL=DataBase.d.ts.map

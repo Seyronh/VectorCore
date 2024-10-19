@@ -3,9 +3,13 @@
 	"version": "1.0.0",
 	"description": "A vector database with the vector generation included",
 	"main": "./dist/index.js",
-	"types":"./dist/index.d.ts",
+	"types": "./dist/index.d.ts",
+	"files": [
+		"./dist",
+		"README.md"
+	],
 	"scripts": {
-		"build": "tsc ./src/index.ts",
+		"build": "tsc",
 		"test": "echo \"Error: no test specified\" && exit 1"
 	},
 	"repository": {

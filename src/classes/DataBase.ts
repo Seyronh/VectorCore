@@ -81,6 +81,9 @@ class DataBase {
 		if (filter) return await this.index.listItemsByMetadata(filter);
 		return await this.index.listItems();
 	}
+	async deleteDB() {
+		await this.index.deleteIndex();
+	}
 }
 
 export default DataBase;

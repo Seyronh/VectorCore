@@ -1,5 +1,6 @@
 import { EmbeddingModel, FlagEmbedding } from "fastembed";
 import { VectorTypes } from "../Types";
+import { isTypedArray } from "util/types";
 
 class VectorGenerator {
 	private modelEnum: EmbeddingModel;
@@ -24,7 +25,7 @@ class VectorGenerator {
 	/**
 	 * Generates an embedding vector for the given text based on the specified vector type.
 	 *
-	 * @param {string} text - The text to be embedded.
+	 * @param {string | string[]} text - The text to be embedded.
 	 * @param {VectorTypes} [type] - The type of vector to generate. Can be Query, Passage, or Any.
 	 * @returns {Promise<number[] | undefined>} A promise that resolves to the generated vector or undefined if the embedding model is not initialized.
 	 */
@@ -33,20 +34,32 @@ class VectorGenerator {
 			case VectorTypes.Query:
 				return this.EMBEDDINGMODEL?.queryEmbed(text);
 			case VectorTypes.Passage:
-				return this.EMBEDDINGMODEL?.passageEmbed([text], 1);
+				return (await this.EMBEDDINGMODEL?.passageEmbed([text], 1).next())
+					?.value?.[0];
 			default:
-				return this.EMBEDDINGMODEL?.embed([text], 1);
+				return (await this.EMBEDDINGMODEL?.embed([text], 1).next())?.value?.[0];
 		}
 	}
 	/**
 	 * Generates an array of embedding vectors for the given array of text.
+	 * WARNING: This method have less accuracy than `generateVector` in querys
 	 *
-	 * @param {string[]} text - The array of text to be embedded.
-	 * @param {number} [batchSize] - The batch size to use for the embedding. Defaults to 1.
+	 * @param {string[]} texts - The array of text to be embedded.
+	 * @param {number} [batchSize] - The batch size to use for the embedding. Defaults to texts length.
+	 * @param {VectorTypes} [type] - The type of vector to generate. Can be Query, Passage, or Any.
 	 * @returns {Promise<number[][] | undefined>} A promise that resolves to the generated array of vectors or undefined if the embedding model is not initialized.
 	 */
-	async generateVectors(text: string[], batchSize?: number) {
-		return this.EMBEDDINGMODEL?.embed(text, batchSize);
+	async generateVectors(
+		texts: string[],
+		batchSize?: number,
+		type?: VectorTypes
+	) {
+		switch (type) {
+			case VectorTypes.Passage:
+				return this.EMBEDDINGMODEL?.passageEmbed(texts, batchSize);
+			default:
+				return this.EMBEDDINGMODEL?.embed(texts, batchSize);
+		}
 	}
 }
 export default VectorGenerator;

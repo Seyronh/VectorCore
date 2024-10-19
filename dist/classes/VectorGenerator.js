@@ -34,34 +34,41 @@ class VectorGenerator {
     /**
      * Generates an embedding vector for the given text based on the specified vector type.
      *
-     * @param {string} text - The text to be embedded.
+     * @param {string | string[]} text - The text to be embedded.
      * @param {VectorTypes} [type] - The type of vector to generate. Can be Query, Passage, or Any.
      * @returns {Promise<number[] | undefined>} A promise that resolves to the generated vector or undefined if the embedding model is not initialized.
      */
     generateVector(text, type) {
         return __awaiter(this, void 0, void 0, function* () {
-            var _a, _b, _c;
+            var _a, _b, _c, _d, _e, _f, _g;
             switch (type) {
                 case Types_1.VectorTypes.Query:
                     return (_a = this.EMBEDDINGMODEL) === null || _a === void 0 ? void 0 : _a.queryEmbed(text);
                 case Types_1.VectorTypes.Passage:
-                    return (_b = this.EMBEDDINGMODEL) === null || _b === void 0 ? void 0 : _b.passageEmbed([text], 1);
+                    return (_d = (_c = (yield ((_b = this.EMBEDDINGMODEL) === null || _b === void 0 ? void 0 : _b.passageEmbed([text], 1).next()))) === null || _c === void 0 ? void 0 : _c.value) === null || _d === void 0 ? void 0 : _d[0];
                 default:
-                    return (_c = this.EMBEDDINGMODEL) === null || _c === void 0 ? void 0 : _c.embed([text], 1);
+                    return (_g = (_f = (yield ((_e = this.EMBEDDINGMODEL) === null || _e === void 0 ? void 0 : _e.embed([text], 1).next()))) === null || _f === void 0 ? void 0 : _f.value) === null || _g === void 0 ? void 0 : _g[0];
             }
         });
     }
     /**
      * Generates an array of embedding vectors for the given array of text.
+     * WARNING: This method have less accuracy than `generateVector` in querys
      *
-     * @param {string[]} text - The array of text to be embedded.
-     * @param {number} [batchSize] - The batch size to use for the embedding. Defaults to 1.
+     * @param {string[]} texts - The array of text to be embedded.
+     * @param {number} [batchSize] - The batch size to use for the embedding. Defaults to texts length.
+     * @param {VectorTypes} [type] - The type of vector to generate. Can be Query, Passage, or Any.
      * @returns {Promise<number[][] | undefined>} A promise that resolves to the generated array of vectors or undefined if the embedding model is not initialized.
      */
-    generateVectors(text, batchSize) {
+    generateVectors(texts, batchSize, type) {
         return __awaiter(this, void 0, void 0, function* () {
-            var _a;
-            return (_a = this.EMBEDDINGMODEL) === null || _a === void 0 ? void 0 : _a.embed(text, batchSize);
+            var _a, _b;
+            switch (type) {
+                case Types_1.VectorTypes.Passage:
+                    return (_a = this.EMBEDDINGMODEL) === null || _a === void 0 ? void 0 : _a.passageEmbed(texts, batchSize);
+                default:
+                    return (_b = this.EMBEDDINGMODEL) === null || _b === void 0 ? void 0 : _b.embed(texts, batchSize);
+            }
         });
     }
 }

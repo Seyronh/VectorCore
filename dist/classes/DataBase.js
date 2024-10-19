@@ -97,6 +97,11 @@ class DataBase {
             return yield this.index.listItems();
         });
     }
+    deleteDB() {
+        return __awaiter(this, void 0, void 0, function* () {
+            yield this.index.deleteIndex();
+        });
+    }
 }
 exports.default = DataBase;
 //# sourceMappingURL=DataBase.js.map
