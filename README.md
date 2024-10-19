@@ -137,6 +137,63 @@ for await (const Batch of vector) {
 }
 ```
 
+### Retrieving item by vector
+
+```typescript
+const items = await db.getItems(vector, results);
+const itemsFiltered = await db.getItems(vector, results, MetadataFilter);
+```
+
+### Retrieving item by id
+
+```typescript
+const item = await db.getItem("ID");
+```
+
+### Deleting item by id
+
+```typescript
+await db.deleteItem("ID");
+```
+
+### Updating item by id
+
+```typescript
+const item = { id: "ID", metadata: { name: "NewName" } };
+await db.updateItem(item);
+```
+
+### getAllItems
+
+```typescript
+const items = await db.getAllItems();
+const itemsFiltered = await db.getAllItems(MetadataFilter);
+```
+
+### Delete database
+
+```typescript
+await db.deleteDB();
+```
+
+### MetadataFilter
+
+you'll be able to use the same subset of [Mongo DB query operators](https://www.mongodb.com/docs/manual/reference/operator/query/) that Pinecone supports
+
+#### Example EQ
+
+```typescript
+const items = await db.getAllItems({ name: { $eq: "apple" } });
+```
+
+#### Example AND/OR
+
+```typescript
+const items = await db.getAllItems({
+	$and: [{ name: { $eq: "apple" } }, { color: { $eq: "blue" } }],
+}); //or operator syntax is the same as and operator
+```
+
 ## Contributing
 
 Contributions are welcome! If you'd like to contribute to VectorCore, please fork the repository and submit a pull request.

@@ -39,13 +39,13 @@ class DataBase {
 	 *
 	 * @param {number[]} vector - The vector that will be used to query the index.
 	 * @param {number} resultSize - The number of results to return.
-	 * @param {MetadataFilter} filters - The metadata filters to apply to the query.
+	 * @param {MetadataFilter} [filters] - The metadata filters to apply to the query.
 	 * @returns {Item[]} An array of items that match the query.
 	 */
 	async getItems(
 		vector: number[],
 		resultSize: number,
-		filters: MetadataFilter
+		filters?: MetadataFilter
 	) {
 		return await this.index.queryItems(vector, resultSize, filters);
 	}
@@ -69,6 +69,8 @@ class DataBase {
 	 * @param {string} id - The id of the item to delete.
 	 */
 	async deleteItem(id: string) {
+		if ((await this.index.getItem(id)) == undefined)
+			throw new Error("Item not found");
 		await this.index.deleteItem(id);
 	}
 	/**
