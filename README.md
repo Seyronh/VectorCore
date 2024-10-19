@@ -1,9 +1,5 @@
 # VectorCore
 
-A vector database with vector generation included.
-
-## Overview
-
 VectorCore is a TypeScript library that provides a simple and efficient way to store and query vector data using [vectra](https://www.npmjs.com/package/vectra). It includes a built-in vector generator that uses [fastembed](https://www.npmjs.com/package/fastembed), making it easy to work with vector data for free.
 
 ## Features
